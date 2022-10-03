@@ -1,39 +1,35 @@
 import {User} from '../database/models/index';
-import { phoneExist, userExist } from '../service/userServices';
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt")
+import { phoneExist, userExist, createUser } from '../services/userServices';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken'
+import assignToken from '../helpers/assignToken';
+
 
   const signup = async(req, res)=>{
-    const{password, username, email, phone} = req.body;
-  
-    
-    // console.log(req.body)
-    const user = await userExist(email)
-    if(user){
-      console.log('email already or phone exist')
+    try {
+    const{ email, phone} = req.body;
+
+    const exist = await userExist(email)
+    if(exist){
+      return res.json({success: false, statusCode: 409, message: 'email already exists'})
     }
+
     const puser= await phoneExist(phone)
     if(puser){
-      console.log('phone already exist')
+      return res.json({success: false, statusCode: 409, message: 'phone already exist'})
     }
-    else{
+    const newUser = await createUser(req.body)
 
-    const newUser = await User.create(req.body)
     if(newUser){
-      const userr={newUser}
-      const token=jwt.sign({userr}, process.env.SECRETKEY, {
-        expiresIn: 1 * 24 * 60 * 60 * 1000,
-      });
-      
-      res.json({
-        token:token
-      })
-      console.log('user saved')
-      res.send(newUser)
-    }else{
-      console.log('failed to save')
-    } 
-  }
+      const userToken = assignToken(newUser)
+      return res.json({success: true, statusCode: 201, regToken: userToken, data: newUser})
+    }
+
+    } catch (error) {
+      return res.json({success: false, statusCode: 500, error: error.message, message:'Internal server error'})
+    }
+    
+  
 
   
 }

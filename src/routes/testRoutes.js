@@ -1,6 +1,6 @@
 import express from'express'
 const router = express.Router()
-import {login, signup} from '../controllers/userController'
+import {login, signup} from '../controllers/authControllers'
 
 router.get('/', signup)
 router.get('/',login)

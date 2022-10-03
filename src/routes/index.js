@@ -1,12 +1,10 @@
 import express from 'express';
-const router = express.Router();
-import userRoutes from './userRoutes';
-import testRoutes from './testRoutes'
+import testRoutes from './testRoutes';
+import authRoutes from './authRoutes';
 
-router.get('/', (req, res)=>{
-    res.send('routes from documentation')
-})
-router.use('/users', userRoutes)
-router.use('/test', testRoutes)
+const router = express.Router();
+
+router.use('/auth', authRoutes);
+router.use('/test', testRoutes);
 
 export default router;
