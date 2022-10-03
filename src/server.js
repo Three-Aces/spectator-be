@@ -5,13 +5,16 @@ import swaggerUI from 'swagger-ui-express'
 import swaggerDocs from "./documentation";
 import DB from './database/models';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
-const port = process.env.PORT || 7000;
+const port = process.env.PORT || 8081;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }))
+app.use(cookieParser())
 
 const {sequelize} = DB;
 sequelize
@@ -27,6 +30,7 @@ app.get('/', (req, res)=>{
     res.send('get all spectators')
 })
 app.use('/api/v1', Routes)
+// app.use('/api/users', userRoutes)
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 app.listen( port, () => {
