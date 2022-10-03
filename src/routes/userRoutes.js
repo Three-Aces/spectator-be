@@ -1,6 +1,6 @@
 //importing modules
 import express from'express'
-import {signup} from'../controllers/userController'
+import {login, signup} from'../controllers/userController'
 // const { signup, login } = userController
 import saveUser from '../middlewares/userAuth'
 const router = express.Router()
@@ -9,10 +9,7 @@ const router = express.Router()
 //passing the middleware function to the signup
 router.post('/signup', signup)
 
-//login route
-// router.post('/login', login )
-router.get('/all', (req, res)=>{
- res.send('here it is all users')
-})
 
+
+router.post('/login',login )
 export default router
