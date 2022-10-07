@@ -40,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
   },
+  isVerified: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
   }, {
     sequelize,
     tableName:'users',

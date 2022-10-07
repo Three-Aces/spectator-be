@@ -3,7 +3,7 @@ import { phoneExist, userExist, createUser } from '../services/userServices';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
 import assignToken from '../helpers/assignToken';
-
+import sendVerificationEmail from '../helpers/sendEmail/sendVerificationEmail';
 
   const signup = async(req, res)=>{
     try {
@@ -22,7 +22,8 @@ import assignToken from '../helpers/assignToken';
 
     if(newUser){
       const userToken = assignToken(newUser)
-      return res.json({success: true, statusCode: 201, regToken: userToken, data: newUser})
+      sendVerificationEmail(userToken, newUser)
+      return res.status(201).json({success: true, statusCode: 201, regToken: userToken, data: newUser})
     }
 
     } catch (error) {

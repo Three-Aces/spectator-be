@@ -14,8 +14,6 @@
  *                    schema:
  *                       type: object
  *                       properties:
- *                           username:
- *                               type: string
  *                           email:
  *                               type: string
  *                           phone:

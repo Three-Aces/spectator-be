@@ -6,7 +6,7 @@ import swaggerDocs from "./documentation";
 import DB from './database/models';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-
+import sendVerificationEmail from './helpers/sendEmail/sendVerificationEmail';
 const app = express();
 
 const port = process.env.PORT || 8081;
@@ -36,5 +36,6 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 app.listen( port, () => {
     console.log( `server is running on ${port}` );
     console.log( `press CTRL+C to stop server` );
+    // sendVerificationEmail()
 } );
 

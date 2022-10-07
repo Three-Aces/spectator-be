@@ -21,6 +21,10 @@ module.exports = {
       phone: {
         type: DataTypes.STRING
       },
+      isVerified: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE
