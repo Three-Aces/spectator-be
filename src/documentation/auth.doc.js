@@ -47,10 +47,12 @@
  *                           password:
  *                               type: string 
  *          responses:
- *              201:
- *                  description: Successfully user loged in!
+ *              200:
+ *                  description: Successfully user logged in!
  *              400:
  *                  description: Bad request
+ *              404: 
+ *                  description: Not Found
  *              500:
  *                  description: Internal server error!
  */

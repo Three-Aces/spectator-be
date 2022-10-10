@@ -5,11 +5,12 @@
   "main": "server.js",
   "scripts": {
     "build": "babel src -d dist",
-    "start": "cross-env NODE_ENV=production npm run migrate && npm run build && node dist/server.js",
+    "start": "cross-env NODE_ENV=production npm run unmigrate && npm run migrate && npm run build && node dist/server.js",
     "dev": "cross-env NODE_ENV=development nodemon --exec npx babel-node src/server.js",
     "migrate": "npx sequelize-cli db:migrate",
     "unmigrate": "npx sequelize-cli db:migrate:undo:all",
     "test": "echo \"Error: no test specified\" && exit 1"
+
   },
   "repository": {
     "type": "git",

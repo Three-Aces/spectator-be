@@ -6,7 +6,7 @@ import swaggerDocs from "./documentation";
 import DB from './database/models';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import sendVerificationEmail from './helpers/sendEmail/sendVerificationEmail';
+
 const app = express();
 
 const port = process.env.PORT || 8081;
@@ -25,7 +25,7 @@ sequelize
     .catch((err) => {
         console.log('Unable to connect to the database: ', err);
 });
-
+console.log(process.env.NODE_ENV)
 app.get('/', (req, res)=>{
     res.send('get all spectators')
 })

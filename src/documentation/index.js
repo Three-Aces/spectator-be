@@ -19,8 +19,10 @@ const swaggerOptions = {
     servers: [
       {
         url: "/api/v1",
-        url: "https://spectator-be.onrender.com/api/v1"
       },
+      {
+        url: "https://spectator-be.onrender.com/api/v1",
+      }
     ],
     components: {
       securitySchemes: {
