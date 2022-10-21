@@ -80,14 +80,11 @@ const verifyUser = async(req, res)=> {
     return res.status(400).json({ message: `Invalid or expired Token.`});
   }
   try {
-    const exists = await userExist(data.user.email);
-    
-    if (!exists) {
-      return res.status(404).json({message: `Ooops! User does not exist!`});
-    }
     const verified = await verifyUserAccount(data.user.email);
-
-    return res.status(200).json({message: "User verified successfully", data: verified});
+    if(verified){
+      return res.status(200).json({status: 200, message: "User verified successfully"});
+    }
+    return res.status(409).json({status: 409, message: "User already verified"});
   } catch (error) {
     return res.status(500).json({message: `Ooops! Unable to verify User ${error.message}`});
   }

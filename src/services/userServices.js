@@ -28,7 +28,12 @@ import bcrypt from 'bcrypt';
     return user;
   }
 
+
   const verifyUserAccount = async(email)=>{
+    const user = await User.findOne({where: {email}})
+    if(user.isVerified){
+      return false
+    }
     const data = await User.update(
       {
         isVerified: true,
@@ -37,7 +42,7 @@ import bcrypt from 'bcrypt';
         where: { email },
       }
     );
-    return data;
+    return true;
   }
 
 
