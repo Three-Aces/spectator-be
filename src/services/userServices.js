@@ -3,11 +3,11 @@ import bcrypt from 'bcrypt';
 
 
   const userExist = async(email)=>{
-    const exist = await User.findOne({
+    const user = await User.findOne({
       where: {email}
     })
-    if(exist){
-      return true
+    if(user){
+      return user
     }
     return false
   }
