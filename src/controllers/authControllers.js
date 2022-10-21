@@ -1,4 +1,4 @@
-import { phoneExist, userExist, createUser, verifyUserAccount } from '../services/userServices';
+import { phoneExist, userExist, createUser, verifyUserAccount, createUserSession, deleteSession, getUserSessions } from '../services/userServices';
 import bcrypt from 'bcrypt';
 import assignToken from '../helpers/assignToken';
 import verifyToken from '../helpers/verifyToken';
@@ -52,24 +52,62 @@ const login = async (req, res) => {
       });
     }
     const loginToken = assignToken(user)
+    const ssn = await createUserSession({
+      userId: user.id,
+      token:loginToken,
+      deviceType: req.headers["user-agent"],
+      loginIp: req.ip,
+      lastActivity: new Date().toJSON(),
+    });
+    
     return res.status(200).json({
-      loginToken
+      loginToken,
+      ssn
     }); 
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
 
-// exports.signout = async (req, res) => {
+const  signout = async(req, res)=> {
+  try {
+    console.log(req.user)
+    if (!req.user || !req.headers["authorization"]) {
+      return res.status(403).json({ message: 'user not logged in' });
+    }
+
+    const token = req.headers["authorization"].split(" ")[1];
+    await deleteSession(null, req.user.id, token);
+    return res.status(200).json({ message: 'logged out successful' });
+  } catch (error) {
+    return res.status(500).json({ message: 'unable to logout' });
+  }
+}
+
+const sessions = async(req, res)=>{
+  try {
+    if (!req.user || !req.headers["authorization"]) {
+ 
+      errorResponse(res, 403, "User not logged in");
+    }
+
+    const token = req.headers["authorization"].split(" ")[1];
+    const ssn = await getUserSessions(token)
+    return res.status(200).json({sessions: ssn.map((session) => session.dataValues)})
+  } catch (error) {
+    return res.status(500).json({message: 'internal server error', error: error.message})
+  }
+  
+}
+// const  getUserSessions = async(req, res) =>{
 //   try {
-//     req.session = null;
-//     return res.status(200).send({
-//       message: "You've been signed out!"
-//     });
-//   } catch (err) {
-//     this.next(err);
+//     const sessions = await req.user;
+//     console.log(sessions)
+//     // return res.json({message: "User session return successfully"})
+//   } catch (error) {
+//     return res.json({message: 'oops', error: error.message})
 //   }
-// };
+// }
 
 const verifyUser = async(req, res)=> {
   let data = {};
@@ -91,6 +129,6 @@ const verifyUser = async(req, res)=> {
 }
 
 export {
- signup, verifyUser, login
+ signup, verifyUser, login, signout, sessions
 }
 

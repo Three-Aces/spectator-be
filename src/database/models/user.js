@@ -11,10 +11,12 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
+      this.hasMany(models.UserSession, {
+        foreignKey: 'userId',
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      })
     }
-   toJSON(){
-    return {...this.get(), id: undefined}
-   }
   }
   User.init({
     id:{
