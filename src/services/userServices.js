@@ -1,35 +1,46 @@
 import {User} from '../database/models/index';
 import bcrypt from 'bcrypt';
 
-const userExist = async(email)=>{
-  const exist = await User.findOne({
-    where: {email}
-  })
-  if(exist){
-    return true
+
+  const userExist = async(email)=>{
+    const exist = await User.findOne({
+      where: {email}
+    })
+    if(exist){
+      return true
+    }
+    return false
   }
-  return false
-}
 
-const phoneExist= async(phone)=>{
-  const userPhone=await User.findOne({
-    where:{phone}
-  })
-  if (userPhone){
-    return true
+  const phoneExist= async(phone)=>{
+    const userPhone=await User.findOne({
+      where:{phone}
+    })
+    if (userPhone){
+      return true
+    }
+    return false
   }
-  return false
-}
 
-const createUser = async (userData)=>{
-  userData.password = await bcrypt.hash(userData.password, 10)
-  const user = await User.create(userData)
-  return user;
-}
+  const createUser = async (userData)=>{
+    userData.password = await bcrypt.hash(userData.password, 10)
+    const user = await User.create(userData)
+    return user;
+  }
 
-export 
-{
-  userExist,
-  phoneExist,
-  createUser
+  const verifyUserAccount = async(email)=>{
+    const data = await User.update(
+      {
+        isVerified: true,
+      },
+      {
+        where: { email },
+      }
+    );
+    return data;
+  }
+
+
+export {
+  userExist, createUser, phoneExist, verifyUserAccount
 }

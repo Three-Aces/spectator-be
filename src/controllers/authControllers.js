@@ -1,10 +1,8 @@
-import {User} from '../database/models/index';
-import { phoneExist, userExist, createUser } from '../services/userServices';
+import { phoneExist, userExist, createUser, verifyUserAccount } from '../services/userServices';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken'
 import assignToken from '../helpers/assignToken';
+import verifyToken from '../helpers/verifyToken';
 import sendVerificationEmail from '../helpers/sendEmail/sendVerificationEmail';
-const env = process.env.NODE_ENV || 'development';
 
 
   const signup = async(req, res)=>{
@@ -34,15 +32,15 @@ const env = process.env.NODE_ENV || 'development';
     
   }
 
-exports.login = async (req, res) => {
+const login = async (req, res) => {
+  const {email} = req.body
   try {
-    const user = await User.findOne({
-      where: {
-        email: req.body.email,
-      },
-    });
+    const user = await userExist(email)
     if (!user) {
-      return res.status(404).send({ message: "User Not found." });
+      return res.status(404).json({ message: "User Not found." });
+    }
+    if (!user.isVerified) {
+      return res.status(400).json({ message: "User needs to be verified" });
     }
     const passwordIsValid = bcrypt.compareSync(
       req.body.password,
@@ -58,23 +56,44 @@ exports.login = async (req, res) => {
       loginToken
     }); 
   } catch (error) {
-    return res.status(500).send({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
-exports.signout = async (req, res) => {
+// exports.signout = async (req, res) => {
+//   try {
+//     req.session = null;
+//     return res.status(200).send({
+//       message: "You've been signed out!"
+//     });
+//   } catch (err) {
+//     this.next(err);
+//   }
+// };
+
+const verifyUser = async(req, res)=> {
+  let data = {};
   try {
-    req.session = null;
-    return res.status(200).send({
-      message: "You've been signed out!"
-    });
+    data = await verifyToken(req.params.token);
+    
   } catch (err) {
-    this.next(err);
+    return res.status(400).json({ message: `Invalid or expired Token.`});
   }
-};
+  try {
+    const exists = await userExist(data.user.email);
+    
+    if (!exists) {
+      return res.status(404).json({message: `Ooops! User does not exist!`});
+    }
+    const verified = await verifyUserAccount(data.user.email);
 
+    return res.status(200).json({message: "User verified successfully", data: verified});
+  } catch (error) {
+    return res.status(500).json({message: `Ooops! Unable to verify User ${error.message}`});
+  }
+}
 
 export {
- signup
+ signup, verifyUser, login
 }
 

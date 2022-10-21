@@ -22,7 +22,7 @@ const schema = {
     password: Joi.string()
       .required()
       .empty()
-      .pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#*&]+)[\w@#*&]{8,}$/)
+      .pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/)
       .messages({
         "any.required": "{{#label}} field is required",
         "string.base": "{{#label}} must be of type string",

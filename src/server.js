@@ -25,7 +25,7 @@ sequelize
     .catch((err) => {
         console.log('Unable to connect to the database: ', err);
 });
-console.log(process.env.NODE_ENV)
+
 app.get('/', (req, res)=>{
     res.send('get all spectators')
 })

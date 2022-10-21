@@ -55,4 +55,16 @@
  *                  description: Not Found
  *              500:
  *                  description: Internal server error!
+ * 
+ * 
+ * 
+ * /auth/verify/{token}:
+ *      get:
+ *          tag: [Authentication]
+ *          description: It helps to verify user
+ *          parameters:
+ *              - name: token
+ *                in: path
+ *                description: Registration token
+ *                required: true
  */

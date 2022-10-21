@@ -4,13 +4,10 @@ module.exports = {
   async up(queryInterface, DataTypes) {
     await queryInterface.createTable('users', {
       id:{
-        type:DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-      },
-      uuid:{
-        type:DataTypes.UUID,
-        defaultValue:DataTypes.UUIDV4
+        allowNull: false,
+        primaryKey: true,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
       },
       password: {
         type: DataTypes.STRING
@@ -24,6 +21,10 @@ module.exports = {
       isVerified: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
+      },
+      role: {
+        type: DataTypes.STRING,
+        defaultValue: 'parent'
       },
       createdAt: {
         allowNull: false,
