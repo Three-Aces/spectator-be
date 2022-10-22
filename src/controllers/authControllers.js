@@ -99,15 +99,6 @@ const sessions = async(req, res)=>{
   }
   
 }
-// const  getUserSessions = async(req, res) =>{
-//   try {
-//     const sessions = await req.user;
-//     console.log(sessions)
-//     // return res.json({message: "User session return successfully"})
-//   } catch (error) {
-//     return res.json({message: 'oops', error: error.message})
-//   }
-// }
 
 const verifyUser = async(req, res)=> {
   let data = {};
@@ -127,6 +118,7 @@ const verifyUser = async(req, res)=> {
     return res.status(500).json({message: `Ooops! Unable to verify User ${error.message}`});
   }
 }
+
 
 export {
  signup, verifyUser, login, signout, sessions

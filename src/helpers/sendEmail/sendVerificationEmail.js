@@ -2,8 +2,8 @@ import nodemailer from 'nodemailer';
 import generateHtmlTemplate from './generateHtmlTemplate';
 
 const sendVerificationEmail = async(regToken, newUser) =>{
-    const redirectLink = `${process.env.REDIRECT_URL}` + `/auth/verify/` + regToken
-
+    const redirectLink = `${process.env.REDIRECT_URL}` + `/api/v1/auth/verify/` + regToken
+    console.log("redirectLink", redirectLink)
     let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,

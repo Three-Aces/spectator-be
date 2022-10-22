@@ -18,7 +18,6 @@ const isAuthenticated = async (req, res, next) => {
     if (!user) return res.status(401).json({message: "Access denied. User not found"});
 
     const session = await getUserSessions(token);
-    console.log('session', session)
     if (!session.length == 1)
       return res.status(401).json({ message: "Access denied. Invalid session!"});
 
