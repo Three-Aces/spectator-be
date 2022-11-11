@@ -83,7 +83,7 @@ const  signout = async(req, res)=> {
 
     const token = req.headers["authorization"].split(" ")[1];
     await deleteSession(null, req.user.id, token);
-    return res.status(200).json({ message: 'logged out successful' });
+    return res.status(200).json({ message: 'logged out successfully' });
   } catch (error) {
     return res.status(500).json({ message: 'unable to logout' });
   }
