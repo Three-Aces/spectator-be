@@ -15,6 +15,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId',
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
+      });
+      this.hasOne(models.Profile, {
+        foreignKey: 'userId',
+        as: 'profile',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       })
     }
   }
@@ -36,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     phone:{
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false
     },
     isVerified: {

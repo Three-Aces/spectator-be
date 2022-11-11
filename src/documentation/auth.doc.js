@@ -60,11 +60,37 @@
  * 
  * /auth/verify/{token}:
  *      get:
- *          tag: [Authentication]
+ *          tags: [Authentication]
  *          description: It helps to verify user
  *          parameters:
  *              - name: token
  *                in: path
  *                description: Registration token
  *                required: true
+ * 
+ *          responses:
+ *                  200:
+ *                     description: user verified succesfully
+ *                  400:
+ *                     description: bad request
+ *                  409:
+ *                     description: user already verified
+ *                  500:
+ *                     description: Internal server error
+ * 
+ * /users/profile:
+ *      get:
+ *          security:
+ *              - BearerToken: []
+ *          tags: [Profile]
+ *          description: It helps to get user profile
+ * 
+ *          responses:
+ *                  200:
+ *                     description: profile retrieved succesfully
+ *                  400:
+ *                     description: bad request
+ *                  500:
+ *                     description: Internal server error
+ * 
  */
