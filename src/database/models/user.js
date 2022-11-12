@@ -21,6 +21,9 @@ module.exports = (sequelize, DataTypes) => {
         as: 'profile',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
+      });
+      this.hasMany(models.Students,{
+        foreignKey:'parentId'
       })
     }
   }
