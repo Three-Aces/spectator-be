@@ -50,7 +50,11 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: false
     },
     role: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      references:{
+        model: 'Role',
+        as: 'role'
+      }
     }
   }, {
     sequelize,
