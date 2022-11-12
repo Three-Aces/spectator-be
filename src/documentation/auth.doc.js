@@ -60,11 +60,81 @@
  * 
  * /auth/verify/{token}:
  *      get:
- *          tag: [Authentication]
+ *          tags: [Authentication]
  *          description: It helps to verify user
  *          parameters:
  *              - name: token
  *                in: path
  *                description: Registration token
  *                required: true
+ * 
+ *          responses:
+ *                  200:
+ *                     description: user verified succesfully
+ *                  400:
+ *                     description: bad request
+ *                  409:
+ *                     description: user already verified
+ *                  500:
+ *                     description: Internal server error
+ * 
+ * /auth/signout:
+ *      post:
+ *          security:
+ *              - BearerToken: []
+ *          tags: [Authentication]
+ *          description: Logout the user
+ *          summary: It helps to logout the user
+ *          responses:
+ *                  200:
+ *                     description: user logged out succesfully
+ *                  500:
+ *                     description: Internal server error
+ * 
+ * /users/profile:
+ *      put:
+ *          security:
+ *              - BearerToken: []
+ *          tags: [Profile]
+ *          description: Update user profile
+ *          summary: it helps to update user profile
+ *          requestBody:
+ *            content:
+ *               multipart/form-data:
+ *                  schema:
+ *                    type: object
+ *                    properties:
+ *                      firstName:
+ *                        type: string
+ *                      lastName:
+ *                        type: string
+ *                      sex:
+ *                        type: string
+ *                        example: 'male, female, others'
+ *                      phone:
+ *                        type: string
+ *                      profile_image:
+ *                        type: string
+ *                        format: binary
+ *                      country:
+ *                        type: string
+ *                        example: 'Rwanda'
+ *                        
+ *                 
+ *                 
+ *                  
+ *      get:
+ *          security:
+ *              - BearerToken: []
+ *          tags: [Profile]
+ *          description: It helps to get user profile
+ * 
+ *          responses:
+ *                  200:
+ *                     description: profile retrieved succesfully
+ *                  400:
+ *                     description: bad request
+ *                  500:
+ *                     description: Internal server error
+ * 
  */

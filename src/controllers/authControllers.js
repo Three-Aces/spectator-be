@@ -3,6 +3,8 @@ import bcrypt from 'bcrypt';
 import assignToken from '../helpers/assignToken';
 import verifyToken from '../helpers/verifyToken';
 import sendVerificationEmail from '../helpers/sendEmail/sendVerificationEmail';
+import {Profile} from '../database/models'
+import { createUserProfile } from '../services/profileServices';
 
 
   const signup = async(req, res)=>{
@@ -23,6 +25,9 @@ import sendVerificationEmail from '../helpers/sendEmail/sendVerificationEmail';
     if(newUser){
       const userToken = assignToken(newUser)
       sendVerificationEmail(userToken, newUser)
+
+      
+      
       return res.status(201).json({success: true, statusCode: 201, regToken: userToken, data: newUser})
     }
 
@@ -78,7 +83,7 @@ const  signout = async(req, res)=> {
 
     const token = req.headers["authorization"].split(" ")[1];
     await deleteSession(null, req.user.id, token);
-    return res.status(200).json({ message: 'logged out successful' });
+    return res.status(200).json({ message: 'logged out successfully' });
   } catch (error) {
     return res.status(500).json({ message: 'unable to logout' });
   }
@@ -111,7 +116,10 @@ const verifyUser = async(req, res)=> {
   try {
     const verified = await verifyUserAccount(data.user.email);
     if(verified){
-      return res.status(200).json({status: 200, message: "User verified successfully"});
+      // create user profile
+      const profile = await createUserProfile(data.user)
+      
+      return res.status(200).json({status: 200, message: "User verified successfully", profile});
     }
     return res.status(409).json({status: 409, message: "User already verified"});
   } catch (error) {

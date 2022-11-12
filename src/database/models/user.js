@@ -16,10 +16,15 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
+      this.hasOne(models.Profile, {
+        foreignKey: 'userId',
+        as: 'profile',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      });
       this.hasMany(models.Students,{
         foreignKey:'parentId'
       })
-      
     }
   }
   User.init({
@@ -40,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     phone:{
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false
     },
     isVerified: {
