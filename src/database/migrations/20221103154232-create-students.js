@@ -10,21 +10,26 @@ module.exports = {
         type: DataTypes.INTEGER
       },
       firstName: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false
       },
       lastName: {
         type: DataTypes.STRING,
         allowNull: false
       },
       sex: {
-        type: DataTypes.STRING
+        type: DataTypes.ENUM('male', 'female', 'other'),
+        allowNull: false,
+        defaultValue: 'other'
       },
       school: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'Ecole Secondary Bumbogo'
       },
       marks: {
         type: DataTypes.INTEGER,
-        defaultValue:40,
+        defaultValue: 40,
         
       },
       parentId:{
@@ -33,7 +38,8 @@ module.exports = {
       },
       classId:{
         type:DataTypes.INTEGER,
-        allowNull:false
+        allowNull:false,
+        defaultValue: 1
       },
       
       createdAt: {

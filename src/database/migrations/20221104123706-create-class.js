@@ -11,7 +11,13 @@ module.exports = {
       },
      name: {
         type: DataTypes.STRING,
-        unique:true
+        allowNull: false,
+        defaultValue: 'S1'
+      },
+      group: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'A'
       },
       createdAt: {
         allowNull: false,

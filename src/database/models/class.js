@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.hasMany(models.Students,{
-        foreignKey:'classId'
+        foreignKey:'classId', as: 'class'
       })
     }
   }
@@ -26,9 +26,13 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique:true
-      
+      defaultValue: 'S1'
     },
+    group: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: 'A'
+    }
   }, {
     sequelize,
     modelName: 'Class',

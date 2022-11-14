@@ -1,12 +1,23 @@
 import {Profile} from '../database/models'
 import cloudinary from '../../imageUploader'
+import db from '../database/models'
 
 
 export default class ProfileControllers{
 
     static async GetProfileInfo(req, res){
         const user = req.user
-        const profile = await Profile.findOne({where:{userId: user.id} })
+        const profile = await Profile.findOne({
+            where:{userId: user.id},
+            include: [
+                {
+                    model: db.User,
+                    as: 'user',
+                    attributes: {exclude: ['createdAt', 'updatedAt']}
+                }
+                
+            ]
+         })
         if(Object.keys(profile).length === 0){
             return res.status(404).json({message: 'profile not available'})
         }

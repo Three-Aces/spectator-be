@@ -1,12 +1,12 @@
-import {Students} from "../database/models"
+import db, {Students} from "../database/models"
 // import user from "../database/models/user"
 import {User,Class} from "../database/models"
 
 const addStudent=async(req,res)=>{
-    const{classId,parentId,firstName,lastName,sex,school}=req.body
+    const{firstName,lastName,sex,school}=req.body
+    const parentId = req.parent.id
     try{
         const parent=await User.findOne({where:{id:parentId, role: 'parent'}})
-        const classe=await Class.findOne({where:{id:classId}})
         
         const checkExist = await Students.findOne({where: {
             firstName,
@@ -16,9 +16,9 @@ const addStudent=async(req,res)=>{
         if (checkExist){
             return res.json({message:'student already exist'})
         }
-        if(parent && classe){
+        if(parent){
         
-            const student= await Students.create({firstName,lastName,sex,school,parentId : parent.id,classId : classe.id})
+            const student= await Students.create({firstName,lastName,sex,school,parentId})
             
             return res.json(student)
         }
@@ -30,22 +30,41 @@ const addStudent=async(req,res)=>{
     }
     
 }
+
 const getStudent=async(req,res)=>{
     try{
-        let parentName;
         const students=await Students.findAll()
-            
-            students.forEach(parent => {
-                parentName = parent.email
-            });
-             
             return res.json({students})
         }
+
         catch(err){
             console.log(err)
             return res.status(500).json({error:err.message})
         }
-         }
+}
+
+const getStudentByParent = async(req, res)=>{
+    const id = req.parent.id
+    try{
+        const students=await Students.findAll({
+            where: {parentId: id},
+            include: [
+                {
+                    model: db.Class,
+                    as: 'class',
+                    attributes: {exclude: ['createdAt', 'updatedAt']}
+                }
+            ]
+        })
+            return res.status(200).json({students})
+        }
+
+        catch(err){
+            console.log(err)
+            return res.status(500).json({error:err.message})
+        }
+}
+
 const deleteStudent=async(req,res)=>{
     const id=req.params.id
     try{
@@ -106,5 +125,6 @@ export {
     getStudent,
     deleteStudent,
     updateStudent,
-    findOneStudent
+    findOneStudent,
+    getStudentByParent
 }

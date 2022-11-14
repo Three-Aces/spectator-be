@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       this.hasOne(models.Profile, {
         foreignKey: 'userId',
-        as: 'profile',
+        as: 'user',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       });
