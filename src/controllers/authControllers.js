@@ -119,7 +119,7 @@ const verifyUser = async(req, res)=> {
       // create user profile
       const profile = await createUserProfile(data.user)
       
-      return res.status(200).json({status: 200, message: "User verified successfully", profile});
+      return res.status(200).json({status: 200, message: "User verified successfully"});
     }
     return res.status(409).json({status: 409, message: "User already verified"});
   } catch (error) {

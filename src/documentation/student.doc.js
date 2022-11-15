@@ -32,4 +32,18 @@
  *              500:
  *                  description: Internal server error
  * 
+ * /student/getAllStudents:
+ *      get:
+ *          tags: [Student]
+ *          summary: This helps to get list all students.
+ *          description: List all Students
+ * 
+ *          responses:
+ *              200:
+ *                  description: student retrieved!
+ *              404:
+ *                  description: Not Found
+ *              500:
+ *                  description: Internal server error
+ * 
  */

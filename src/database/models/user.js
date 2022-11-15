@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.hasOne(models.Role, {
-        foreignKey: "role",
+        foreignKey: "roleName",
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
@@ -56,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       references:{
         model: 'Role',
-        as: 'role'
+        key: 'roleName'
       }
     }
   }, {

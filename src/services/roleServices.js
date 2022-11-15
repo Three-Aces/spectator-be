@@ -15,10 +15,11 @@ const updateUserRole = async (email, role)=>{
 }
 
 const findRoleByName = async (roleName)=>{
-    // const role = await Role.findOne({
-    //     where: {roleName}
-    // })
-    const role = await Role.findAll()
+    const role = await Role.findOne({
+        where: {roleName}
+    })
+    
+    // const role = await Role.findAll()
 
     return role
 }

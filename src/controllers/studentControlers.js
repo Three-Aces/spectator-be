@@ -33,7 +33,15 @@ const addStudent=async(req,res)=>{
 
 const getStudent=async(req,res)=>{
     try{
-        const students=await Students.findAll()
+        const students=await Students.findAll({
+            include: [
+                {
+                    model: db.Class,
+                    as: 'class',
+                    attributes: {exclude: ['createdAt', 'updatedAt']}
+                }
+            ]
+        })
             return res.json({students})
         }
 
