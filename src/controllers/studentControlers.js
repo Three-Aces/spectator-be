@@ -1,12 +1,11 @@
 import db, {Students} from "../database/models"
-// import user from "../database/models/user"
 import {User,Class} from "../database/models"
 
 const addStudent=async(req,res)=>{
     const{firstName,lastName,sex,school}=req.body
     const parentId = req.parent.id
     try{
-        const parent=await User.findOne({where:{id:parentId, role: 'parent'}})
+        const parent=await User.findOne({where:{id:parentId}})
         
         const checkExist = await Students.findOne({where: {
             firstName,

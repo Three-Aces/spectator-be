@@ -24,6 +24,9 @@ module.exports = (sequelize, DataTypes) => {
       });
       this.hasMany(models.Students,{
         foreignKey:'parentId'
+      });
+      this.hasMany(models.Courses, {
+        foreignKey: 'teacherId',  as: 'teacher'
       })
     }
   }
@@ -58,7 +61,7 @@ module.exports = (sequelize, DataTypes) => {
         model: 'Role',
         key: 'roleName'
       }
-    }
+    },
   }, {
     sequelize,
     tableName:'users',
