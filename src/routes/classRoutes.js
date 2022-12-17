@@ -1,5 +1,3 @@
-const { application } = require("express");
-
 import express from'express'
 import { addClass,getClass } from '../controllers/classController';
 

@@ -6,6 +6,8 @@ import swaggerDocs from "./documentation";
 import DB from './database/models';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import path from 'path';
+import io from "./services/chatServices";
 
 const app = express();
 
@@ -33,9 +35,16 @@ app.use('/api/v1', Routes)
 // app.use('/api/users', userRoutes)
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
-app.listen( port, () => {
+const server = app.listen( port, () => {
     console.log( `server is running on ${port}` );
     console.log( `press CTRL+C to stop server` );
-    // sendVerificationEmail()
 } );
 
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/chats', (req,res)=>{
+  res.sendFile(path.join(`${__dirname}/public/chat.html`));
+})
+
+io.attach(server);
+
+export default app
