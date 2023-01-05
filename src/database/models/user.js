@@ -27,6 +27,9 @@ module.exports = (sequelize, DataTypes) => {
       });
       this.hasMany(models.Course, {
         foreignKey: 'teacherId',
+      });
+      this.hasMany(models.Chat, {
+        foreignKey: 'userId'
       })
     }
   }

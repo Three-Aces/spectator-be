@@ -1,8 +1,8 @@
-// import express from'express'
-// import { chat } from '../controllers/chatControllers';
+import express from'express'
+import { chat, findAllChats } from '../controllers/chatControllers';
 
-// const router = express.Router()
+const router = express.Router()
 
-// router.post('/',  chat)
+router.get('/', findAllChats)
 
-// export default router
+export default router

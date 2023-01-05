@@ -1,5 +1,6 @@
 import socket from "socket.io";
 import { server } from "../server";
+import {Chat} from "../database/models"
 
 // Socket setup
 const io = socket(server,{
@@ -12,8 +13,14 @@ const io = socket(server,{
 io.on('connection', (socket)=>{
     console.log('user connected', socket.id)
     
-    socket.on('message', (data)=>{
+    socket.on('message', async(data)=>{
         console.log('message', data)
+        const savedChat = await Chat.create({
+            message: data,
+            timeStamp: Date.now(),
+        })
+
+        socket.emit('saved', {savedChat})
     })
 
     socket.on('disconnect', ()=>{
