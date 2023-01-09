@@ -6,6 +6,9 @@ module.exports = (sequelize, DataTypes) => {
   class StudentReport extends Model {
     static associate(models) {
       // define association here
+      this.belongsTo(models.Course, {
+        foreignKey: 'courseId',
+      })
     }
   }
   StudentReport.init({
@@ -36,6 +39,14 @@ module.exports = (sequelize, DataTypes) => {
     date: {
       type: DataTypes.DATE,
       allowNull: false
+    },
+    courseId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Courses',
+        key: 'id'
+      }
     }
   }, {
     sequelize,

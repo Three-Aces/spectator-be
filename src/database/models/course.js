@@ -8,6 +8,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsTo(models.User, {
         foreignKey: 'teacherId',
+        as:'courses'
+      })
+      this.hasMany(models.StudentReport, {
+        foreignKey: 'courseId',
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE'
       })
     }
   }
@@ -22,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: 'Users',
+        model: 'users',
         key: 'id'
       }
     },

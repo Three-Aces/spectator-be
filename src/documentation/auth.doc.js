@@ -119,6 +119,13 @@
  *                      country:
  *                        type: string
  *                        example: 'Rwanda'
+ *          responses:
+ *                  200:
+ *                     description: profile updated succesfully
+ *                  400:
+ *                     description: bad request
+ *                  500:
+ *                     description: Internal server error
  *                        
  *                 
  *                 

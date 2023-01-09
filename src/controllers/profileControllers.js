@@ -13,7 +13,13 @@ export default class ProfileControllers{
                 {
                     model: db.User,
                     as: 'user',
-                    attributes: {exclude: ['createdAt', 'updatedAt']}
+                    attributes: {exclude: ['createdAt', 'updatedAt']},
+                    include: [
+                        {
+                            model: db.Course,
+                            as: 'courses'
+                        }
+                    ]
                 }
                 
             ]
