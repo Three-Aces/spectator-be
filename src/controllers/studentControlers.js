@@ -4,6 +4,7 @@ import {User,Class} from "../database/models"
 const addStudent=async(req,res)=>{
     const{firstName,lastName,sex,school}=req.body
     const parentId = req.user.id
+    console.log('ppppp', parentId)
     try{
         const parent=await User.findOne({where:{id:parentId}})
         
@@ -51,7 +52,7 @@ const getStudent=async(req,res)=>{
 }
 
 const getStudentByParent = async(req, res)=>{
-    const id = req.parent.id
+    const id = req.user.id
     try{
         const students=await Students.findAll({
             where: {parentId: id},
