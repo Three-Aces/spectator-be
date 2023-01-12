@@ -94,12 +94,13 @@ const deleteStudent=async(req,res)=>{
 
 const updateStudent=async(req,res)=>{
     const id=req.params.id
-    const{firstName,lastName,sex}=req.body
+    const{firstName,lastName,sex, marks}=req.body
     try{
         const students=await Students.findOne({where:{id}})
         students.firstName=firstName
         students.lastName=lastName
         students.sex=sex
+        students.marks = marks
         await students.save()
         return res.json(students)
     }
