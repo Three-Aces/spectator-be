@@ -1,4 +1,4 @@
-import {Course} from "../database/models"
+import db, {Course} from "../database/models"
 
 
 const addCourse = async(req,res)=>{
@@ -20,8 +20,22 @@ const addCourse = async(req,res)=>{
 
 const getCourses = async(req,res)=>{
     try{
-        const courses = await Course.findAll()
-            return res.status(200).json(courses)
+        const courses = await Course.findAll({
+            include: [
+                {
+                    model: db.User,
+                    as: 'courses',
+                    include: [
+                        {
+                            model: db.Profile,
+                            as: 'user'
+
+                        }
+                    ]
+                }
+            ]
+        })
+            return res.status(200).json({courses})
         }
         catch(err){
             console.log(err)

@@ -9,6 +9,7 @@ import parentRoutes from './parentRoutes';
 import chatRoutes from './chatRoutes'
 import teacherRoutes from './teacherRoutes'
 import courseRoutes from './courseRoutes'
+import usersRoutes from './userRoutes'
 
 const router = express.Router();
 
@@ -22,5 +23,6 @@ router.use('/parent', parentRoutes);
 router.use('/chats', chatRoutes);
 router.use('/students', teacherRoutes)
 router.use('/courses', courseRoutes)
+router.use('/users', usersRoutes)
 
 export default router;

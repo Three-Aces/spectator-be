@@ -46,4 +46,68 @@
  *              500:
  *                  description: Internal server error
  * 
+ * /student/{studentId}/behavior:
+ *      post:
+ *          tags: [Behavior-Marks/History]
+ *          summary: This helps to record behavior marks history.
+ *          description: Record Behavior Marks History
+ *          parameters:
+ *              - name: studentId
+ *                in: path
+ *                required: true
+ * 
+ *          requestBody:
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              reducedMarks:
+ *                                  type: integer
+ *                              comment:
+ *                                  type: string
+ * 
+ *          responses:
+ *              201:
+ *                  description: Behavior Marks History Created!
+ *              404:
+ *                  description: Not Found
+ *              500:
+ *                  description: Internal server error
+ * 
+ *      get:
+ *          tags: [Behavior-Marks/History]
+ *          summary: This helps to list behavior marks history.
+ *          description: Record Behavior Marks History
+ *          parameters:
+ *              - name: studentId
+ *                in: path
+ *                required: true
+ * 
+ *          responses:
+ *              200:
+ *                  description: List all Behavior Marks History
+ *              404:
+ *                  description: Not Found
+ *              500:
+ *                  description: Internal server error
+ * 
+ * /student/{studentId}/print:
+ *      get:
+ *          tags: [Behavior-Marks/Print]
+ *          summary: This helps to print pdf list all students.
+ *          description: List all Students
+ *          parameters:
+ *              - name: studentId
+ *                in: path
+ *                required: true
+ * 
+ *          responses:
+ *              200:
+ *                  description: Pdf generated!
+ *              404:
+ *                  description: Not Found
+ *              500:
+ *                  description: Internal server error
+ * 
  */

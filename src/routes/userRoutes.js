@@ -1,15 +1,15 @@
 //importing modules
 import express from'express'
-import {login, signup} from'../controllers/userController'
-// const { signup, login } = userController
-import saveUser from '../middlewares/userAuth'
+// import {login, signup} from'../controllers/userController'
+import { listAllUsers, listAllParentUsers, listAllTeacherUsers } from '../controllers/usersController'
+
 const router = express.Router()
 
-//signup endpoint
-//passing the middleware function to the signup
-router.post('/signup', signup)
+// router.post('/signup', signup)
+// router.post('/login',login )
 
+router.get('/', listAllUsers)
+router.get('/parents', listAllParentUsers)
+router.get('/teachers', listAllTeacherUsers)
 
-
-router.post('/login',login )
 export default router

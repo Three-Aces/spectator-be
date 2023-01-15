@@ -12,15 +12,15 @@ module.exports = {
      },
      {
       id: 2,
-      name: 'S1',
-      group: 'B',
+      name: 'S2',
+      group: 'A',
       createdAt: new Date(),
       updatedAt: new Date()
      },
      {
        id: 3,
-       name: 'S1',
-       group: 'C',
+       name: 'S3',
+       group: 'A',
        createdAt: new Date(),
        updatedAt: new Date()
      }
