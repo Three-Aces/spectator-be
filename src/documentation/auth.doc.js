@@ -144,4 +144,57 @@
  *                  500:
  *                     description: Internal server error
  * 
+ * /auth/forgot-password:
+ *      post:
+ *          tags: [Authentication]
+ *          summary: This helps to request reset a password.
+ *          description: Request password reset!
+ *          requestBody:
+ *              description: Provide an Email
+ *              required: true
+ *              content:
+ *                application/json:
+ *                    schema:
+ *                       type: object
+ *                       properties:
+ *                           email:
+ *                               type: string
+ *          responses:
+ *              200:
+ *                  description: Email to reset sent!
+ *              400:
+ *                  description: Bad request
+ *              500:
+ *                  description: Internal server error!
+ * 
+ * 
+ * /auth/reset-password/{token}:
+ *      post:
+ *          tags: [Authentication]
+ *          summary: This helps to provide a new password.
+ *          description: Provide new password for resetting!
+ *          parameters:
+ *              - name: token
+ *                in: path
+ *                required: true
+ *          requestBody:
+ *              description: Provide an Email
+ *              required: true
+ *              content:
+ *                application/json:
+ *                    schema:
+ *                       type: object
+ *                       properties:
+ *                           newPassword:
+ *                               type: string
+ *                           confirmPassword:
+ *                               type: string
+ *          responses:
+ *              200:
+ *                  description: Password updated successfully!
+ *              400:
+ *                  description: Bad request
+ *              500:
+ *                  description: Internal server error!
+ * 
  */

@@ -1,0 +1,159 @@
+*{
+	padding: 10;
+	margin: 0;
+	list-style: none;
+}
+body {
+	width: 100%;
+	height: 100%;
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	color: rgb(139, 136, 136);
+	-webkit-font-smoothing: antialiased;
+	background-image: url(../img/bg2.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;	
+}
+
+#container {
+	width: 1346px;
+	height: 1000px;
+}
+
+.header {
+	display:inline-flex;
+	height: 70px;
+	width: 1346px;
+	position: fixed;
+	margin-bottom: 50px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.menu li {
+	width: 70px;
+	margin: 0;
+	margin-top: 22px;
+	margin-left: 30px;
+	padding: 5px;
+	text-align: center;
+	display: inline-flex;
+	color: rgb(191, 201, 196);
+}
+
+.menu li:hover {
+	background:#ccc;
+	border-radius: 3px;
+	color: rgb(19, 11, 8);
+}
+
+.menu i {		
+	display: inline-flex;
+	font-size: 27px;
+	float: right;
+	margin-right: 10px;
+	padding-top: 20px;
+	padding-right: 10px;
+}
+.menu2 {
+	padding-left: 450px;
+}
+.menu2 li {
+	float: right;
+	width: 70px;
+	margin: 1px;
+	margin-top: 22px;
+	margin-left: 30px;
+	padding: 5px;
+	text-align: center;
+	display: inline-flex;
+	color: aqua;
+}
+.menu2 ul li:hover {
+	background:#ccc;
+	border-radius: 3px;
+	font-size: 20px;
+	max-lines: 2px;
+}
+
+.main {
+	height: 3000px;
+	width: 100%;
+	padding-top: 70px;
+}
+
+.lower {
+	display:inline-flex;
+	height: 100px;
+	padding-bottom: 90px;
+	margin-bottom: 60px;
+	font-size: 30px;
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+	background-color: rgb(116, 80, 80);
+	width: 300px;
+	height: 200px;
+
+}
+.logo img {
+	float: left;
+	width: 120px;
+	height: 120px;
+	margin-left: 100px;
+	margin-top: 15px;
+
+}
+
+.quick-links {
+	background-color: #ccc;
+	width: 360px;
+	height: 200px;
+
+}
+.quick-links li {
+	font-size: 22px;
+}
+
+.follow-us {
+	background-color: aqua;
+	width: 329px;
+	height: 200px;
+}
+.follow-us li {
+	font-size: 22px;
+}
+
+.contact-us {
+	float: right;
+	background-color: aquamarine;
+	width: 360px;
+	height: 200px;
+}
+.contact-us li {
+	font-size: 22px;
+	padding: 1px;
+}
+.contact-us i {
+	float: left;
+	font-size: 25px;
+	padding-left: 0x;
+	margin-left: 1px;
+	color: rgb(43, 40, 37);
+
+}
+
+.footer {
+	height: 50px;
+	width: 1346px;
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.2);
+	padding-bottom: 0;
+	margin-bottom: 0;
+	bottom: 1px;	
+}
+.footer p{
+	font-size: 20px;
+	text-align: center;
+	color: antiquewhite;
+	padding-top: 15px;
+}

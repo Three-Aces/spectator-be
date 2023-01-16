@@ -21,9 +21,10 @@ const requestResetPassword = async( req, res)=>{
         const token = await assignToken(user)
         //proceding with email to reset password
         const redirectLink = `${process.env.REDIRECT_URL}` + `/api/v1/auth/reset-password/` + token
+        // console.log('reditrectLink', redirectLink)
         sendResetEmail(user, redirectLink);
 
-        return res.status(200).json({message: "Email set link sent successfully", resetToken: token});
+        return res.status(200).json({message: "Email reset link sent successfully", resetToken: token});
 
 
     } catch (error) {
@@ -33,8 +34,12 @@ const requestResetPassword = async( req, res)=>{
 
 
 const resetPassword = async(req, res)=>{
-    let newPassword = req.body.newPassword;
-    let confirmPassword = req.body.confirmPassword;
+
+    console.log('bbbbbbody', req.params.token)
+    let {newPassword} = req.body;
+    let {confirmPassword} = req.body;
+    console.log('bbbbbbody', req.body)
+
     if(newPassword == confirmPassword){
         try {
             let token = req.params.token;
@@ -47,29 +52,39 @@ const resetPassword = async(req, res)=>{
                 const hashedPassword= await bcrypt.hash(newPassword, 10);
                 //Update the user password
                 user.update({password: hashedPassword});
-                return res.status(200).json({message: "Password updated successfully"});
+                res.send("Password updated successfully")
+                // return res.status(200).json({message: "Password updated successfully", hashedPassword});
                 }
     
                 } catch (error) {
-                return res.status(500).json( {message: `Ooops! Updating user password failed ${error.message}`});
+                    res.send(`Ooops! Updating user password failed ${error.message}`)
+                // return res.status(500).json( {message: `Ooops! Updating user password failed ${error.message}`});
                 }
     
             }else{
-                return res.status(500).json( { message: `Ooops! You can't update the user who doesn't exist ${error.message}`} );
+                res.send(`Ooops! You can't update the user who doesn't exist ${error.message}`)
+                // return res.status(500).json( { message: `Ooops! You can't update the user who doesn't exist ${error.message}`} );
             }
     
         } catch (error) {
-            return res.status(500).json( { message: `Ooops! Checking for password reset failed ${error.message}`});
+            res.send(`Ooops! Checking for password reset failed ${error.message}`)
+            // return res.status(500).json( { message: `Ooops! Checking for password reset failed ${error.message}`});
         }
 
     }else{
-        return res.status(400).json({ message: `Ooops! Entered passwords doesn't match`});
+        res.send('passwords need to match')
+        // return res.status(400).json({ message: `Ooops! Entered passwords doesn't match`});
     }
     
+}
+
+const getResetPassword =(req, res)=>{
+res.render('reset-password')
 }
 
 
 export{
      requestResetPassword,
-     resetPassword
+     resetPassword,
+     getResetPassword
 }

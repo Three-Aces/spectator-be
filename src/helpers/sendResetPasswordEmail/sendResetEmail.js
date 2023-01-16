@@ -18,7 +18,21 @@ const sendResetEmail = async(user, link) =>{
     text: `${link}`, // plain text body
     html: `<a href=${link}>Click here to reset your password</a>`
     // html: generateHtmlTemplate(redirectLink, newUser.email) // html body
+  }, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
   });
+
+  // transporter.sendMail(mailOptions, function(error, info){
+  //   if (error) {
+  //     console.log(error);
+  //   } else {
+  //     console.log('Email sent: ' + info.response);
+  //   }
+  // }); 
 
 }
 
