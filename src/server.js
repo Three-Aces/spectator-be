@@ -50,6 +50,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/chats', (req,res)=>{
   res.sendFile(path.join(`${__dirname}/public/chat.html`));
 })
+///
+
+
+//////
 app.use('/api/v1/student/:studentId/print', async(req, res)=>{
     const {studentId}=req.params
     try{

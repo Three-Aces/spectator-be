@@ -44,7 +44,14 @@ module.exports = {
         roleName: 'teacher',
         createdAt: new Date(),
         updatedAt: new Date()
+      },
+      {
+        id: 8,
+        roleName: 'admin',
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
+
     ], {});
   },
 

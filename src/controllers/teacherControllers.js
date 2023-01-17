@@ -14,7 +14,6 @@ const makeStudentAttendance = async(req, res)=>{
             courseId,
             date: Date.now()
         })
-        console.log('vvvvv', attended)
         return res.status(201).json({
             response: attended,
             message: 'Successfully recorded!'

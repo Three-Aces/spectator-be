@@ -14,7 +14,13 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'courseId',
         onDelete: 'SET NULL',
         onUpdate: 'CASCADE'
-      })
+      });
+      this.hasMany(models.Notification, {
+        foreignKey: { name: "courseId", allowNull: true },
+        as: "course",
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE'
+      });
     }
   }
   Course.init({

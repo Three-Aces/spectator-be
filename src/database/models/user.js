@@ -31,7 +31,13 @@ module.exports = (sequelize, DataTypes) => {
       });
       this.hasMany(models.Chat, {
         foreignKey: 'userId'
-      })
+      });
+      this.hasMany(models.Notification, {
+        foreignKey: { name: "userId", allowNull: false },
+        as: "owner",
+        onDelete: "CASCADE",
+        onUpdate: "RESCRICT",
+      });
     }
   }
   User.init({

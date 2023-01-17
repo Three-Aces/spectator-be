@@ -7,8 +7,4 @@ const router = express.Router()
 router.post('/:teacherId/add-course',  addCourse)
 router.get('/',  getCourses)
 
-
-
-
-
 export default router
