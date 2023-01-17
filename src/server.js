@@ -54,7 +54,7 @@ app.use('/chats', (req,res)=>{
 
 
 //////
-app.use('/api/v1/student/:studentId/print', async(req, res)=>{
+app.get('/api/v1/student/:studentId/print', async(req, res)=>{
     const {studentId}=req.params
     try{
         const behaviorMarksHistories = await db.BehaviorMarksHistory.findAll(
